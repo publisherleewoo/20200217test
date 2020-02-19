@@ -6,8 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 
+
 const useStyles = makeStyles(theme => ({
-  mainFeaturedPost: {
+  MainVisual: {
     position: 'relative',
     backgroundColor: theme.palette.grey[800],
     color: theme.palette.common.white,
@@ -25,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     backgroundColor: 'rgba(0,0,0,.3)',
   },
-  mainFeaturedPostContent: {
+  MainVisualContent: {
     position: 'relative',
     padding: theme.spacing(3),
     [theme.breakpoints.up('md')]: {
@@ -35,17 +36,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MainFeaturedPost(props) {
+
+export default function MainVisual(props) {
   const classes = useStyles();
-  const { post } = props;
+  const { post } = props
 
   return (
-    <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${post.image})` }}>
+    <Paper className={classes.MainVisual} style={{ backgroundImage: `url(${post.image})` }}>
       {<img style={{ display: 'none' }} src={post.image} alt={post.imageText} />}
       <div className={classes.overlay} />
       <Grid container>
         <Grid item md={6}>
-          <div className={classes.mainFeaturedPostContent}>
+          <div className={classes.MainVisualContent}>
             <Typography component="h1" variant="h3" color="inherit" gutterBottom>
               {post.title}
             </Typography>
@@ -62,6 +64,6 @@ export default function MainFeaturedPost(props) {
   );
 }
 
-MainFeaturedPost.propTypes = {
+MainVisual.propTypes = {
   post: PropTypes.object,
 };
