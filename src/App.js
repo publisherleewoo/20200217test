@@ -18,7 +18,12 @@ function App() {
           <React.Fragment>
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route path="/board" component={Board} />
+              <Route path="/board" exact component={Board} />
+              {/* componentStyle */}
+              <Route path="/board/:id" >    
+              {/* hooksStyle */}
+                    <Board></Board>
+              </Route>
               <Route path="/login" component={Login} />
               <Route path="/signup" component={SignUp} />
               <Route  component={NotFoundPage} />
