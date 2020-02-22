@@ -48,28 +48,11 @@ const useStyles = makeStyles(theme => ({
 
 
 
-
-
-
-
 export default () => {
 
   const classes = useStyles();
 
-  const [u_idErr, setU_idErr] = useState(false)
-  const [u_emailErr, setU_emailErr] = useState(false)
-  const [u_passwordErr, setU_passwordErr] = useState(false)
-  const [u_firstNameErr, setU_firstNameErr] = useState(false)
-  const [u_lastNameErr, setU_lastNameErr] = useState(false)
-  const [u_genderErr, setU_genderErr] = useState(false)
-  const [u_birthdayYErr, setU_birthdayYErr] = useState(false)
-  const [u_birthdayMErr, setU_birthdayMErr] = useState(false)
-  const [u_birthdayDErr, setU_birthdayDErr] = useState(false)
-  const [u_phone1Err, setU_phone1Err] = useState(false)
-  const [u_phone2Err, setU_phone2Err] = useState(false)
-  const [u_phone3Err, setU_phone3Err] = useState(false)
-
-
+  
   const [checkId, setCheckId] = useState(false)
   const [checkSubmit, setCheckSubmit] = useState(false)
   const [u_id, setId] = useState('');
@@ -85,41 +68,15 @@ export default () => {
   const [u_phone2, setPhone2] = useState('');
   const [u_phone3, setPhone3] = useState('');
 
-
-  let u_idCheck = arg => (!arg)?  setU_idErr(true): setU_idErr(false) 
-  let u_emailCheck = arg => (!arg)?  setU_emailErr(true): setU_emailErr(false) 
-  let u_passwordCheck = arg => (!arg)?  setU_passwordErr(true): setU_passwordErr(false) 
-  let u_firstNameCheck = arg => (!arg)?  setU_firstNameErr(true): setU_firstNameErr(false) 
-  let u_lastNameCheck = arg => (!arg)?  setU_lastNameErr(true): setU_lastNameErr(false) 
-  let u_genderCheck = arg => (!arg)?  setU_genderErr(true): setU_genderErr(false) 
-  let u_birthdayYCheck = arg => (!arg)?  setU_birthdayYErr(true): setU_birthdayYErr(false) 
-  let u_birthdayMCheck = arg => (!arg)?  setU_birthdayMErr(true): setU_birthdayMErr(false) 
-  let u_birthdayDCheck = arg => (!arg)?  setU_birthdayDErr(true): setU_birthdayDErr(false) 
-  let u_phone1Check = arg => (!arg)?  setU_phone1Err(true): setU_phone1Err(false) 
-  let u_phone2Check = arg => (!arg)?  setU_phone2Err(true): setU_phone2Err(false) 
-  let u_phone3Check = arg => (!arg)?  setU_phone3Err(true): setU_phone3Err(false) 
-  
-  let allValidatorCheck = () => {
-    u_idCheck(u_id)
-    u_emailCheck(u_email)
-    u_passwordCheck(u_password)
-    u_firstNameCheck(u_firstName)
-    u_lastNameCheck(u_lastName)
-    u_genderCheck(u_gender)
-    u_birthdayYCheck(u_birthdayY)
-    u_birthdayMCheck(u_birthdayM)
-    u_birthdayDCheck(u_birthdayD)
-    u_phone1Check(u_phone1)
-    u_phone2Check(u_phone2)
-    u_phone3Check(u_phone3)
-  }
-
+ 
   let submitFunc = (e) => {
     e.preventDefault()
     if (!checkId) return alert("아이디 중복확인해주세요")
     if (!checkSubmit) return alert("체크해주세요")
 
-    allValidatorCheck()
+    
+
+
 
     let reqData = {
       u_id,
@@ -130,11 +87,13 @@ export default () => {
       u_birthday: u_birthdayY + u_birthdayM + u_birthdayD,
       u_phone: u_phone1 + u_phone2 + u_phone3,
     }
-
+   
     axios.post('/users/join', reqData)
       .then((r) => {
         console.log(r)
-      }).catch(e => console.log(e))
+        return 
+      })
+      .catch(e => console.log(e)) 
   }
 
   let idCheck = () => {
@@ -148,51 +107,39 @@ export default () => {
 
   const idChangeFunc = (event) => {
     setId(event.target.value);
-    u_idCheck(event.target.value)
   }
   const emailChangeFunc = (event) => {
     setEmail(event.target.value);
-    u_emailCheck(event.target.value)
   }
   const passwordChangeFunc = (event) => {
     setPassword(event.target.value);
-    u_passwordCheck(event.target.value)
   }
   const firstNameChangeFunc = (event) => {
     setFirstName(event.target.value);
-    u_firstNameCheck(event.target.value)
   }
   const lastNameChangeFunc = (event) => {
     setLastName(event.target.value);
-    u_lastNameCheck(event.target.value)
   }
   const genderChangeFunc = (event) => {
     setGender(event.target.value);
-    u_genderCheck(event.target.value)
   }
   const birthdayYChangeFunc = (event) => {
     setBirthdayY(event.target.value);
-    u_birthdayYCheck(event.target.value)
   }
   const birthdayMChangeFunc = (event) => {
     setBirthdayM(event.target.value);
-    u_birthdayMCheck(event.target.value)
   }
   const birthdayDChangeFunc = (event) => {
     setBirthdayD(event.target.value);
-    u_birthdayDCheck(event.target.value)
   }
   const phone1ChangeFunc = (event) => {
     setPhone1(event.target.value);
-    u_phone1Check(event.target.value)
   }
   const phone2ChangeFunc = (event) => {
     setPhone2(event.target.value);
-    u_phone2Check(event.target.value)
   }
   const phone3ChangeFunc = (event) => {
     setPhone3(event.target.value);
-    u_phone3Check(event.target.value)
   }
   const checkChangeFunc = () => setCheckSubmit(!checkSubmit)
 
@@ -208,7 +155,7 @@ export default () => {
         <Typography component="h1" variant="h5">
           Sign up
           </Typography>
-        <form className={classes.form} noValidate >
+        <form className={classes.form}  onSubmit={submitFunc} >
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -222,7 +169,6 @@ export default () => {
                 autoComplete="id"
                 autoFocus
                 onChange={idChangeFunc}
-                error={u_idErr}
               />
               <Button variant="contained"
                 color="primary" onClick={idCheck}>중복확인</Button>
@@ -239,7 +185,6 @@ export default () => {
                 value={u_email}
                 autoComplete="email"
                 onChange={emailChangeFunc}
-                error={u_emailErr}
               />
             </Grid>
             <Grid item xs={12}>
@@ -254,7 +199,6 @@ export default () => {
                 value={u_password}
                 autoComplete="current-password"
                 onChange={passwordChangeFunc}
-                error={u_passwordErr}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -268,7 +212,6 @@ export default () => {
                 value={u_firstName}
                 autoComplete="fname"
                 onChange={firstNameChangeFunc}
-                error={u_firstNameErr}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -282,19 +225,18 @@ export default () => {
                 value={u_lastName}
                 autoComplete="lname"
                 onChange={lastNameChangeFunc}
-                error={u_lastNameErr}
               />
             </Grid>
             <Grid item xs={12} >
-              <FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-helper-label">gender</InputLabel>
+      
+              <FormControl  required  className={classes.formControl}>
+                <InputLabel id="demo-simple-select-required-label">gender</InputLabel>
                 <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
+                  labelId="demo-simple-select-required-label"
+                  id="demo-simple-select-required"
                   value={u_gender}
                   name="u_gender"
                   onChange={genderChangeFunc}
-                  error={u_genderErr}
                 >
                   <MenuItem value={'man'}>man</MenuItem>
                   <MenuItem value={'woman'}>woman</MenuItem>
@@ -305,7 +247,7 @@ export default () => {
 
             {/* birthday,phone */}
             <Grid item xs={4}>
-              <FormControl className={classes.formControl}>
+              <FormControl required className={classes.formControl}>
                 <InputLabel id="demo-simple-select-helper-label">birthday</InputLabel>
                 <Select
                   labelId="demo-simple-select-helper-label"
@@ -314,7 +256,6 @@ export default () => {
                   value={u_birthdayY}
                   name="u_birthdayY"
                   onChange={birthdayYChangeFunc}
-                  error={u_birthdayYErr}
                 >
                   {
                     (() => {
@@ -330,7 +271,7 @@ export default () => {
               </FormControl>
             </Grid>
             <Grid item xs={4}>
-              <FormControl className={classes.formControl}>
+              <FormControl required className={classes.formControl}>
                 <InputLabel id="demo-simple-select-helper-label">birthday</InputLabel>
                 <Select
                   labelId="demo-simple-select-helper-label"
@@ -339,7 +280,6 @@ export default () => {
                   value={u_birthdayM}
                   name="u_birthdayM"
                   onChange={birthdayMChangeFunc}
-                  error={u_birthdayMErr}
                 >
                   {
                     (() => {
@@ -359,7 +299,7 @@ export default () => {
               </FormControl>
             </Grid>
             <Grid item xs={4}>
-              <FormControl className={classes.formControl}>
+              <FormControl  required className={classes.formControl}>
                 <InputLabel id="demo-simple-select-helper-label">birthday</InputLabel>
                 <Select
                   labelId="demo-simple-select-helper-label"
@@ -368,7 +308,6 @@ export default () => {
                   value={u_birthdayD}
                   name="u_birthdayD"
                   onChange={birthdayDChangeFunc}
-                  error={u_birthdayDErr}
                 >
                   {
                     (() => {
@@ -394,7 +333,6 @@ export default () => {
                 name="u_phone1"
                 value={u_phone1}
                 onChange={phone1ChangeFunc}
-                error={u_phone1Err}
               />
             </Grid>
 
@@ -409,7 +347,6 @@ export default () => {
                 name="u_phone2"
                 value={u_phone2}
                 onChange={phone2ChangeFunc}
-                error={u_phone2Err}
               />
             </Grid><Grid item xs={4}>
               <TextField
@@ -422,7 +359,6 @@ export default () => {
                 name="u_phone3"
                 value={u_phone3}
                 onChange={phone3ChangeFunc}
-                error={u_phone3Err}
               />
             </Grid>
             <Grid item xs={12}>
@@ -438,7 +374,7 @@ export default () => {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={submitFunc}
+           
           >
             Sign Up
             </Button>
