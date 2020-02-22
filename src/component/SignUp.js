@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useHistory } from 'react-router-dom';
 
 import Copyright from '../common/CopyRight'
 
@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
 export default () => {
 
   const classes = useStyles();
-
+  const history = useHistory();
   
   const [checkId, setCheckId] = useState(false)
   const [checkSubmit, setCheckSubmit] = useState(false)
@@ -74,9 +74,6 @@ export default () => {
     if (!checkId) return alert("아이디 중복확인해주세요")
     if (!checkSubmit) return alert("체크해주세요")
 
-    
-
-
 
     let reqData = {
       u_id,
@@ -90,8 +87,12 @@ export default () => {
    
     axios.post('/users/join', reqData)
       .then((r) => {
-        console.log(r)
-        return 
+        if(r.data.code===1){
+          alert(r.data.msg)
+          history.push('/login')
+        }else{
+          alert(r.data.msg)
+        } 
       })
       .catch(e => console.log(e)) 
   }
@@ -245,7 +246,6 @@ export default () => {
               </FormControl>
             </Grid>
 
-            {/* birthday,phone */}
             <Grid item xs={4}>
               <FormControl required className={classes.formControl}>
                 <InputLabel id="demo-simple-select-helper-label">birthday</InputLabel>
