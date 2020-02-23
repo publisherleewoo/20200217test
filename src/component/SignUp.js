@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link,useHistory } from 'react-router-dom';
-
 import Copyright from '../common/CopyRight'
-
 import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {
@@ -87,14 +85,12 @@ export default () => {
    
     axios.post('/users/join', reqData)
       .then((r) => {
+        alert(r.data.msg)
         if(r.data.code===1){
-          alert(r.data.msg)
           history.push('/login')
-        }else{
-          alert(r.data.msg)
-        } 
+        }
       })
-      .catch(e => console.log(e)) 
+      .catch(err=>{alert(err)})
   }
 
   let idCheck = () => {
@@ -102,47 +98,48 @@ export default () => {
       let { data } = r;
       (data.code === 1) ? setCheckId(true) : setCheckId(false)
       alert(data.msg)
-    }).catch(err => console.log(err))
+    })
+    .catch(err=>{alert(err)})
 
   }
 
-  const idChangeFunc = (event) => {
+  const u_idChangeFunc = (event) => {
     setId(event.target.value);
   }
-  const emailChangeFunc = (event) => {
+  const u_emailChangeFunc = (event) => {
     setEmail(event.target.value);
   }
-  const passwordChangeFunc = (event) => {
+  const u_passwordChangeFunc = (event) => {
     setPassword(event.target.value);
   }
-  const firstNameChangeFunc = (event) => {
+  const u_firstNameChangeFunc = (event) => {
     setFirstName(event.target.value);
   }
-  const lastNameChangeFunc = (event) => {
+  const u_lastNameChangeFunc = (event) => {
     setLastName(event.target.value);
   }
-  const genderChangeFunc = (event) => {
+  const u_genderChangeFunc = (event) => {
     setGender(event.target.value);
   }
-  const birthdayYChangeFunc = (event) => {
+  const u_birthdayYChangeFunc = (event) => {
     setBirthdayY(event.target.value);
   }
-  const birthdayMChangeFunc = (event) => {
+  const u_birthdayMChangeFunc = (event) => {
     setBirthdayM(event.target.value);
   }
-  const birthdayDChangeFunc = (event) => {
+  const u_birthdayDChangeFunc = (event) => {
     setBirthdayD(event.target.value);
   }
-  const phone1ChangeFunc = (event) => {
+  const u_phone1ChangeFunc = (event) => {
     setPhone1(event.target.value);
   }
-  const phone2ChangeFunc = (event) => {
+  const u_phone2ChangeFunc = (event) => {
     setPhone2(event.target.value);
   }
-  const phone3ChangeFunc = (event) => {
+  const u_phone3ChangeFunc = (event) => {
     setPhone3(event.target.value);
   }
-  const checkChangeFunc = () => setCheckSubmit(!checkSubmit)
+  const u_checkChangeFunc = () => setCheckSubmit(!checkSubmit)
 
 
   return (
@@ -169,7 +166,7 @@ export default () => {
                 value={u_id}
                 autoComplete="id"
                 autoFocus
-                onChange={idChangeFunc}
+                onChange={u_idChangeFunc}
               />
               <Button variant="contained"
                 color="primary" onClick={idCheck}>중복확인</Button>
@@ -185,7 +182,7 @@ export default () => {
                 name="u_email"
                 value={u_email}
                 autoComplete="email"
-                onChange={emailChangeFunc}
+                onChange={u_emailChangeFunc}
               />
             </Grid>
             <Grid item xs={12}>
@@ -199,7 +196,7 @@ export default () => {
                 id="password"
                 value={u_password}
                 autoComplete="current-password"
-                onChange={passwordChangeFunc}
+                onChange={u_passwordChangeFunc}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -212,7 +209,7 @@ export default () => {
                 label="First Name"
                 value={u_firstName}
                 autoComplete="fname"
-                onChange={firstNameChangeFunc}
+                onChange={u_firstNameChangeFunc}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -225,7 +222,7 @@ export default () => {
                 name="u_lastName"
                 value={u_lastName}
                 autoComplete="lname"
-                onChange={lastNameChangeFunc}
+                onChange={u_lastNameChangeFunc}
               />
             </Grid>
             <Grid item xs={12} >
@@ -237,7 +234,7 @@ export default () => {
                   id="demo-simple-select-required"
                   value={u_gender}
                   name="u_gender"
-                  onChange={genderChangeFunc}
+                  onChange={u_genderChangeFunc}
                 >
                   <MenuItem value={'man'}>man</MenuItem>
                   <MenuItem value={'woman'}>woman</MenuItem>
@@ -255,7 +252,7 @@ export default () => {
                   //선택
                   value={u_birthdayY}
                   name="u_birthdayY"
-                  onChange={birthdayYChangeFunc}
+                  onChange={u_birthdayYChangeFunc}
                 >
                   {
                     (() => {
@@ -279,7 +276,7 @@ export default () => {
                   //선택
                   value={u_birthdayM}
                   name="u_birthdayM"
-                  onChange={birthdayMChangeFunc}
+                  onChange={u_birthdayMChangeFunc}
                 >
                   {
                     (() => {
@@ -307,7 +304,7 @@ export default () => {
                   //선택
                   value={u_birthdayD}
                   name="u_birthdayD"
-                  onChange={birthdayDChangeFunc}
+                  onChange={u_birthdayDChangeFunc}
                 >
                   {
                     (() => {
@@ -332,7 +329,7 @@ export default () => {
                 label="Phone"
                 name="u_phone1"
                 value={u_phone1}
-                onChange={phone1ChangeFunc}
+                onChange={u_phone1ChangeFunc}
               />
             </Grid>
 
@@ -346,7 +343,7 @@ export default () => {
                 label="Phone"
                 name="u_phone2"
                 value={u_phone2}
-                onChange={phone2ChangeFunc}
+                onChange={u_phone2ChangeFunc}
               />
             </Grid><Grid item xs={4}>
               <TextField
@@ -358,12 +355,12 @@ export default () => {
                 label="Phone"
                 name="u_phone3"
                 value={u_phone3}
-                onChange={phone3ChangeFunc}
+                onChange={u_phone3ChangeFunc}
               />
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox color="primary" onChange={checkChangeFunc} />}
+                control={<Checkbox color="primary" onChange={u_checkChangeFunc} />}
                 label="I want to receive inspiration, marketing promotions and updates via email."
               />
             </Grid>
