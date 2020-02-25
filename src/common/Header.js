@@ -14,12 +14,13 @@ const useStyles = makeStyles(theme => ({
   toolbarTitle: {
     flex: 1,
   },
- 
-   
+
+
 }));
 
-export default function Header() {
+export default function Header({ islogin, userInfo }) {
   const classes = useStyles();
+  console.log(userInfo)
   return (
     <React.Fragment>
       <Toolbar className={classes.toolbar}>
@@ -38,18 +39,28 @@ export default function Header() {
         >
           blog
         </Typography>
-        <Link to="/signup">
-          <Button variant="outlined" size="small">
-            Sign up
-        </Button>
-        </Link>
-        <Link to="/login">
-          <Button variant="outlined" size="small">
-            login
-        </Button>
-        </Link>
+        {
+          (islogin) ?
+            userInfo.u_name
+            :
+
+            (
+            <>
+            <Link to="/signup">
+              <Button variant="outlined" size="small">
+                Sign up
+               </Button>
+            </Link>
+              <Link to="/login">
+                <Button variant="outlined" size="small">
+                   login
+               </Button>
+              </Link>
+            </>
+            )
+        }
       </Toolbar>
-      <Nav/>
+      <Nav />
 
     </React.Fragment>
   );

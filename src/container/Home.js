@@ -4,6 +4,8 @@ import MainVisual from '../component/MainVisual';
 import FeaturedPost from '../component/FeaturedPost';
 import Header from '../common/Header';
 import Footer from '../common/Footer';
+import store from '../store'
+
 const mainVisual = {
     title: 'Title of a longer featured blog post',
     description:
@@ -32,13 +34,36 @@ const featuredPosts = [
     },
 ];
 
-
 class Home extends Component {
+
+    constructor() {
+        super()
+        this.state = {
+            islogin: false,
+            userInfo: {
+
+            }
+        }
+    }
+
+    componentDidMount(){
+        let {userInfo} =store.getState();
+        if(userInfo){
+            this.setState({
+                islogin:true,
+                userInfo
+            })
+        }
+    }
+ 
+
+
     render() {
+        let {islogin,userInfo} = this.state
         return (
             <>
-                <Header />
-                <MainVisual post={mainVisual} />
+                <Header islogin={islogin} userInfo={userInfo}/>
+                <MainVisual post={mainVisual}/>
                 <Grid container spacing={4}>
                     {featuredPosts.map(post => (
                         <FeaturedPost key={post.title} post={post} />

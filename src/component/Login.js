@@ -12,9 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Copyright from '../common/CopyRight'
-import { Link } from 'react-router-dom'
+import { Link,useHistory } from 'react-router-dom'
 import axios from 'axios'
-
+import store from '../store'
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -40,7 +40,7 @@ export default function Login() {
     const classes = useStyles();
     let [u_id, setU_id] = useState('');
     let [u_password, setU_password] = useState('');
-
+    let history = useHistory()
 
     let axiosFunc = ()=>{
         let reqData = {
@@ -49,12 +49,12 @@ export default function Login() {
         }
         axios.post('/users/login',reqData)
         .then(r=>{
-            alert(r.data.msg)
-            if(r.data.code===1){
-               console.log(r.data)
-               // 리듀서로 유저 정보 넘기고 히스토리푸시
+            let {msg,code,userInfo} = r.data;
+            alert(msg)
+            if(code===1){
+               store.dispatch({type:"login",payload:userInfo})
+               history.push('/')
             }
-
         })
         .catch(err=>{alert(err)})
     }
