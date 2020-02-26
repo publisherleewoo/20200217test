@@ -21,7 +21,7 @@ import {
   Select
 } from '@material-ui/core';
 
-import axios from 'axios';
+import Axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -83,7 +83,7 @@ export default () => {
       u_phone: u_phone1 + u_phone2 + u_phone3,
     }
    
-    axios.post('/users/join', reqData)
+    Axios.post('/users/join', reqData)
       .then((r) => {
         alert(r.data.msg)
         if(r.data.code===1){
@@ -94,7 +94,7 @@ export default () => {
   }
 
   let idCheck = () => {
-    axios.post("/users/idcheck", { u_id }).then(r => {
+    Axios.post("/users/idcheck", { u_id }).then(r => {
       let { data } = r;
       (data.code === 1) ? setCheckId(true) : setCheckId(false)
       alert(data.msg)

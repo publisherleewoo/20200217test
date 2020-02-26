@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import {
+  Container,
+  Typography
+} from '@material-ui/core';
 import Copyright from './CopyRight'
-import Typography from '@material-ui/core/Typography';
+
 
 
 const useStyles = makeStyles(theme => ({

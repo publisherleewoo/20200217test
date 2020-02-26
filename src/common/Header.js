@@ -1,8 +1,13 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import {
+  Toolbar,
+  Button,
+  Typography,
+} from '@material-ui/core';
+ 
+
+import store from '../store'
 import { Link } from 'react-router-dom'
 import Nav from './Nav'
 
@@ -15,12 +20,23 @@ const useStyles = makeStyles(theme => ({
     flex: 1,
   },
 
-
 }));
 
-export default function Header({ islogin, userInfo }) {
+export default function Header() {
   const classes = useStyles();
-  console.log(userInfo)
+  
+  let [islogin,setIslogin] = useState('')
+  let [u_name,setu_name] = useState('')
+  
+  
+  
+  store.subscribe(()=>{
+    let storeState = store.getState()
+    let {userInfo} = storeState 
+    setIslogin(true)
+    setu_name(userInfo.u_name)
+  })
+  
   return (
     <React.Fragment>
       <Toolbar className={classes.toolbar}>
@@ -41,9 +57,8 @@ export default function Header({ islogin, userInfo }) {
         </Typography>
         {
           (islogin) ?
-            userInfo.u_name
+            u_name
             :
-
             (
             <>
             <Link to="/signup">

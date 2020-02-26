@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
+import Copyright from '../common/CopyRight'
+import { Link, useHistory } from 'react-router-dom'
+import Axios from 'axios'
+import store from '../store'
+import {
+    Avatar,
+    Button,
+    CssBaseline,
+    TextField,
+    Grid,
+    Box,
+    Typography,
+    Container
+} from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { makeStyles } from '@material-ui/core/styles';
+
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Copyright from '../common/CopyRight'
-import { Link,useHistory } from 'react-router-dom'
-import axios from 'axios'
-import store from '../store'
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -38,30 +41,31 @@ const useStyles = makeStyles(theme => ({
 
 export default function Login() {
     const classes = useStyles();
-    let [u_id, setU_id] = useState('');
-    let [u_password, setU_password] = useState('');
+    let [u_id, setU_id] = useState('test');
+    let [u_password, setU_password] = useState('1234');
     let history = useHistory()
 
-    let axiosFunc = ()=>{
+    let AxiosFunc = () => {
         let reqData = {
             u_id,
             u_password
         }
-        axios.post('/users/login',reqData)
-        .then(r=>{
-            let {msg,code,userInfo} = r.data;
-            alert(msg)
-            if(code===1){
-               store.dispatch({type:"login",payload:userInfo})
-               history.push('/')
-            }
-        })
-        .catch(err=>{alert(err)})
+        Axios.post('/users/login', reqData)
+            .then(r => {
+                let { msg, code, userInfo } = r.data;
+                alert(msg)
+                if (code === 1) {
+                    store.dispatch({ type: "login", payload: userInfo })
+                    console.log(history)
+                    history.goBack()
+                }
+            })
+            .catch(err => { alert(err) })
     }
 
     let onSubmitFunc = (e) => {
         e.preventDefault()
-        axiosFunc()
+        AxiosFunc()
     }
     let u_idChangeFunc = (e) => {
         setU_id(e.target.value)

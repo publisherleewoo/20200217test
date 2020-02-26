@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import MainVisual from '../component/MainVisual'
-import Header from '../common/Header';
-import Footer from '../common/Footer';
+import {Grid} from '@material-ui/core'
+import BoardTable from '../component/BoardTable'
+
 const mainVisual = {
     title: 'Board Page Title of a longer featured blog post',
     description:
@@ -11,16 +12,18 @@ const mainVisual = {
     linkText: 'more Link',
 };
 
-class Board extends Component {
-    render() {
+let Board =()=> {
+
+    
         return (
             <>
-                <Header />
                 <MainVisual post={mainVisual} />
-                <Footer />
+                <Grid container>                      
+                 <BoardTable></BoardTable>
+                </Grid>
             </>
         );
-    }
+    
 }
 
 export default Board;    
