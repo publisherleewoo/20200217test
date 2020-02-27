@@ -19,7 +19,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import Axios from 'axios';
-import store from '../store'
+ 
 
 const useStyles1 = makeStyles(theme => ({
   root: {
@@ -126,13 +126,9 @@ export default function CustomPaginationActionsTable() {
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  // const [islogin,setIslogin] = React.useState(false)
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-
-
   useEffect(()=>{
-     
     Axios.get('/board').then(r=>{
     console.log(r)
   }).catch(err=>{

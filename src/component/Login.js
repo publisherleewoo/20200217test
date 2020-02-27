@@ -52,13 +52,16 @@ export default function Login() {
         }
         Axios.post('/users/login', reqData)
             .then(r => {
-                let { msg, code, userInfo } = r.data;
-                alert(msg)
-                if (code === 1) {
-                    store.dispatch({ type: "login", payload: userInfo })
-                    console.log(history)
-                    history.goBack()
-                }
+                console.log(r)
+                console.log(document.cookie)
+                // let { msg, code, userInfo } = r.data;
+                // console.log(r.data)
+                // alert(msg)
+                // if (code === 1) {
+                //     store.dispatch({ type: "login", payload: userInfo })
+
+                //     // history.goBack()
+                // }
             })
             .catch(err => { alert(err) })
     }

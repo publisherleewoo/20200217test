@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MainVisual from '../component/MainVisual'
 import {Grid} from '@material-ui/core'
 import BoardTable from '../component/BoardTable'
