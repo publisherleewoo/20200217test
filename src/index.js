@@ -8,7 +8,7 @@ import Axios from 'axios'
 Axios.defaults.baseURL = 'http://localhost:4000';
 // Axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-
+Axios.defaults.withCredentials = true;
 
 
 ReactDOM.render(<App />, document.getElementById('root'));

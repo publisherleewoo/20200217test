@@ -50,18 +50,15 @@ export default function Login() {
             u_id,
             u_password
         }
-        Axios.post('/users/login', reqData)
+        Axios.post('/users/login', reqData,{withCredentials:true})
             .then(r => {
-                console.log(r)
-                console.log(document.cookie)
-                // let { msg, code, userInfo } = r.data;
-                // console.log(r.data)
-                // alert(msg)
-                // if (code === 1) {
-                //     store.dispatch({ type: "login", payload: userInfo })
-
-                //     // history.goBack()
-                // }
+                let { msg, code, userInfo } = r.data;
+                console.log(r.data)
+                alert(msg)
+                if (code === 1) {
+                    store.dispatch({ type: "login", payload: userInfo })
+                    history.push('/')
+                }
             })
             .catch(err => { alert(err) })
     }

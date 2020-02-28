@@ -1,25 +1,31 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-import { withStyles,makeStyles, useTheme } from '@material-ui/core/styles';
+import { withStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
+
+import {
+  TableHead,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableFooter,
+  TablePagination,
+  TableRow,
+  Paper,
+  CircularProgress,
+  IconButton
+} from '@material-ui/core/';
+
+
  
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableFooter from '@material-ui/core/TableFooter';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
-import Axios from 'axios';
  
+
 
 const useStyles1 = makeStyles(theme => ({
   root: {
@@ -28,14 +34,14 @@ const useStyles1 = makeStyles(theme => ({
   },
 }));
 const StyledTableCell = withStyles(theme => ({
-    head: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    body: {
-      fontSize: 14,
-    },
-  }))(TableCell);
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
 function TablePaginationActions(props) {
   const classes = useStyles1();
   const theme = useTheme();
@@ -94,27 +100,27 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 var no = 1;
-function createData( btitle, buser,updated_at,bhits) {
-  
-    return { no:no++, btitle, buser,updated_at,bhits };
+function createData(btitle, buser, updated_at, bhits) {
+
+  return { no: no++, btitle, buser, updated_at, bhits };
 }
 
 
 const rows = [
-  createData('Cupcake',305, 3.7),
-  createData('Donut',452, 25.0),
-  createData('Eclair',262, 16.0),
+  createData('Cupcake', 305, 3.7),
+  createData('Donut', 452, 25.0),
+  createData('Eclair', 262, 16.0),
   createData('Frozen y159,oghurt', 6.0),
-  createData('Gingerbread',356, 16.0),
-  createData('Honeycomb',408, 3.2),
+  createData('Gingerbread', 356, 16.0),
+  createData('Honeycomb', 408, 3.2),
   createData('Ice c237,ream sandwich', 9.0),
   createData('Jelly B375,ean', 0.0),
-  createData('KitKat',518, 26.0),
-  createData('Lollipop',392, 0.2),
-  createData('Marshmallow',318, 0),
-  createData('Nougat',360, 19.0),
-  createData('Oreo',437, 18.0),
-] 
+  createData('KitKat', 518, 26.0),
+  createData('Lollipop', 392, 0.2),
+  createData('Marshmallow', 318, 0),
+  createData('Nougat', 360, 19.0),
+  createData('Oreo', 437, 18.0),
+]
 
 const useStyles2 = makeStyles({
   table: {
@@ -122,20 +128,12 @@ const useStyles2 = makeStyles({
   },
 });
 
-export default function CustomPaginationActionsTable() {
+export default function CustomPaginationActionsTable({ data }) {
+  console.log(data)
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-
-  useEffect(()=>{
-    Axios.get('/board').then(r=>{
-    console.log(r)
-  }).catch(err=>{
-    console.log(err)
-  })
-},[])
-
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -147,69 +145,77 @@ export default function CustomPaginationActionsTable() {
   };
 
   return (
-    <TableContainer component={Paper}>
-       
+    <>
+
+      <TableContainer component={Paper}>
         <button>
-            <Link to={{
-              pathname:"/board/write",
-              
-            }}>
-              글쓰기
+          <Link to={{
+            pathname: "/board/write",
+
+          }}>
+            글쓰기
             </Link>
         </button>
-   
-      
-      <Table className={classes.table} aria-label="custom pagination table">
-      <TableHead>
-          <TableRow>
-            <StyledTableCell align="left">no</StyledTableCell>
-            <StyledTableCell align="left">제목</StyledTableCell>
-            <StyledTableCell align="right">작성자</StyledTableCell>
-            <StyledTableCell align="right">날짜</StyledTableCell>
-            <StyledTableCell align="right">조회수</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows
-          ).map(row => (
-            <TableRow key={row.btitle}>
-              <TableCell align="left">
-                {row.no}
-              </TableCell>
-              <TableCell component="th"  scope="row" align="left">{row.btitle}</TableCell>
-              <TableCell align="right">{row.buser}</TableCell>
-              <TableCell align="right">{row.updated_at}</TableCell>
-              <TableCell align="right">{row.bhits}</TableCell>
+        <Table className={classes.table} aria-label="custom pagination table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell align="left">no</StyledTableCell>
+              <StyledTableCell align="left">제목</StyledTableCell>
+              <StyledTableCell align="right">작성자</StyledTableCell>
+              <StyledTableCell align="right">날짜</StyledTableCell>
+              <StyledTableCell align="right">조회수</StyledTableCell>
             </TableRow>
-          ))}
+          </TableHead>
+          <TableBody>
+            {
+              (rowsPerPage > 0
+                ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : rows
+              ).map(row => (
+                <TableRow key={row.btitle}>
+                  <TableCell align="left">
+                    {row.no}
+                  </TableCell>
+                  <TableCell component="th" scope="row" align="left">{row.btitle}</TableCell>
+                  <TableCell align="right">{row.buser}</TableCell>
+                  <TableCell align="right">{row.updated_at}</TableCell>
+                  <TableCell align="right">{row.bhits}</TableCell>
+                </TableRow>
+              ))  
+            }
+               {/* <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell align="center" colSpan={6} > 
+                      <CircularProgress />
+                    </TableCell>          
+                  </TableRow> 
+               */}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                colSpan={4}
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: { 'aria-label': 'rows per page' },
+                  native: true,
+                }}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
 
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={4}
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: { 'aria-label': 'rows per page' },
-                native: true,
-              }}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
+    </>
   );
 }

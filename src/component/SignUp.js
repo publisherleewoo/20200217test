@@ -51,21 +51,35 @@ export default () => {
   const classes = useStyles();
   const history = useHistory();
   
+  // const [checkId, setCheckId] = useState(false)
+  // const [checkSubmit, setCheckSubmit] = useState(false)
+  // const [u_id, setId] = useState('');
+  // const [u_email, setEmail] = useState('');
+  // const [u_password, setPassword] = useState('');
+  // const [u_firstName, setFirstName] = useState('');
+  // const [u_lastName, setLastName] = useState('');
+  // const [u_gender, setGender] = useState('');
+  // const [u_birthdayY, setBirthdayY] = useState(new Date().getFullYear());
+  // const [u_birthdayM, setBirthdayM] = useState('01');
+  // const [u_birthdayD, setBirthdayD] = useState(1);
+  // const [u_phone1, setPhone1] = useState('');
+  // const [u_phone2, setPhone2] = useState('');
+  // const [u_phone3, setPhone3] = useState('');
+  
   const [checkId, setCheckId] = useState(false)
   const [checkSubmit, setCheckSubmit] = useState(false)
   const [u_id, setId] = useState('');
-  const [u_email, setEmail] = useState('');
-  const [u_password, setPassword] = useState('');
-  const [u_firstName, setFirstName] = useState('');
-  const [u_lastName, setLastName] = useState('');
-  const [u_gender, setGender] = useState('');
+  const [u_email, setEmail] = useState('a');
+  const [u_password, setPassword] = useState('1234');
+  const [u_firstName, setFirstName] = useState('a');
+  const [u_lastName, setLastName] = useState('a');
+  const [u_gender, setGender] = useState('a');
   const [u_birthdayY, setBirthdayY] = useState(new Date().getFullYear());
   const [u_birthdayM, setBirthdayM] = useState('01');
   const [u_birthdayD, setBirthdayD] = useState(1);
-  const [u_phone1, setPhone1] = useState('');
-  const [u_phone2, setPhone2] = useState('');
-  const [u_phone3, setPhone3] = useState('');
-
+  const [u_phone1, setPhone1] = useState('1');
+  const [u_phone2, setPhone2] = useState('2');
+  const [u_phone3, setPhone3] = useState('3');
  
   let submitFunc = (e) => {
     e.preventDefault()

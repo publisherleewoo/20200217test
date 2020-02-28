@@ -12,7 +12,7 @@ import Header from './common/Header'
 import Footer from './common/Footer'
 
 import { Container, CssBaseline } from '@material-ui/core/';
-import Axios from 'axios';
+ 
 
 
 
@@ -29,40 +29,11 @@ function App() {
       
     }
   })
-  const header ={
-    method: "GET",
-    headers: {
-       'Accept':'application/json',
-       'Content-Type': 'application/json',
-       'Cache': 'no-cache'
-    },
-    credentials: 'include'
-  }; 
-  
+
   
 
   return (
     <>
-    <button onClick={()=>{
-
-
-
-      Axios.get("/testsess",header).then(r=>{
-        console.log("서버단세션통신")
-        console.log(r)
-      }).catch(err=>{ 
-        console.log(err)
-      })
-    }}>세션등록</button>
-    <button onClick={()=>{
-      Axios.get("/getsess/",header).then(r=>{
-        console.log("서버단세션확인통신 ")
-      }).catch(err=>{
-        console.log(err)
-      })
-    }}>세션확인</button>
-
-
       <Router>
         <CssBaseline />
         <Container maxWidth="lg">

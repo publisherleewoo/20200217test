@@ -1,8 +1,8 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import MainVisual from '../component/MainVisual'
 import {Grid} from '@material-ui/core'
 import BoardTable from '../component/BoardTable'
-
+import Axios from 'axios'
 const mainVisual = {
     title: 'Board Page Title of a longer featured blog post',
     description:
@@ -13,13 +13,24 @@ const mainVisual = {
 };
 
 let Board =()=> {
+    let [data,setData] = useState(null)
+    
+
+    useEffect(()=>{
+        Axios.get('/board').then(r=>{
+            console.log(r)
+            setData(r.data)
+        }).catch(err=>{
+            console.log(err)
+        })
+    },[])
 
     
         return (
             <>
                 <MainVisual post={mainVisual} />
                 <Grid container>                      
-                 <BoardTable></BoardTable>
+                 <BoardTable data={data}></BoardTable>
                 </Grid>
             </>
         );
