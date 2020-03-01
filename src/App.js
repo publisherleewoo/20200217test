@@ -3,6 +3,7 @@ import { HashRouter as Router, Route, Switch, } from 'react-router-dom'
 import SignUp from './component/SignUp'
 import Login from './component/Login'
 import BoardWrite from './component/BoardWrite'
+import BoardDetail from './component/BoardDetail'
 
 import Home from './pages/Home'
 import Board from './pages/Board'
@@ -47,8 +48,11 @@ function App() {
               <Route path="/board" exact>
                 <Board></Board>
               </Route>
- 
-              <Route path="/board/write" component={BoardWrite}   />
+              <Route path="/board/write" exact  component={BoardWrite}   />
+              <Route path="/board/:id" exact>
+                <BoardDetail></BoardDetail>
+              </Route>
+             
               <Route component={NotFoundPage} />
             </Switch>
             <Footer />

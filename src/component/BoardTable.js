@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 
@@ -14,17 +14,16 @@ import {
   TablePagination,
   TableRow,
   Paper,
-  CircularProgress,
   IconButton
 } from '@material-ui/core/';
 
 
- 
+
 import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
- 
+
 
 
 const useStyles1 = makeStyles(theme => ({
@@ -99,40 +98,41 @@ TablePaginationActions.propTypes = {
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
 };
-var no = 1;
-function createData(btitle, buser, updated_at, bhits) {
 
-  return { no: no++, btitle, buser, updated_at, bhits };
-}
-
-
-const rows = [
-  createData('Cupcake', 305, 3.7),
-  createData('Donut', 452, 25.0),
-  createData('Eclair', 262, 16.0),
-  createData('Frozen y159,oghurt', 6.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Honeycomb', 408, 3.2),
-  createData('Ice c237,ream sandwich', 9.0),
-  createData('Jelly B375,ean', 0.0),
-  createData('KitKat', 518, 26.0),
-  createData('Lollipop', 392, 0.2),
-  createData('Marshmallow', 318, 0),
-  createData('Nougat', 360, 19.0),
-  createData('Oreo', 437, 18.0),
-]
 
 const useStyles2 = makeStyles({
   table: {
     minWidth: 500,
   },
+  tdTitle: {
+    minWidth: 200
+  }
 });
 
+
+function getFormatDate(arg) {
+  var date = new Date(arg)
+  var year = date.getFullYear();              //yyyy
+  var month = (1 + date.getMonth());          //M
+  month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+  var day = date.getDate();                   //d
+  day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+  return year + '-' + month + '-' + day;
+}
+
+
 export default function CustomPaginationActionsTable({ data }) {
-  console.log(data)
+
+  let [rows, setRows] = useState([])
+
+  useEffect(() => {
+    setRows(data)
+
+  }, [data])
+
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);  //보여지는수
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   const handleChangePage = (event, newPage) => {
@@ -148,22 +148,24 @@ export default function CustomPaginationActionsTable({ data }) {
     <>
 
       <TableContainer component={Paper}>
-        <button>
-          <Link to={{
-            pathname: "/board/write",
+        <Link to={{
+          pathname: "/board/write",
 
-          }}>
+        }}>
+          <button>
+
             글쓰기
-            </Link>
+
         </button>
+        </Link>
         <Table className={classes.table} aria-label="custom pagination table">
           <TableHead>
             <TableRow>
-              <StyledTableCell align="left">no</StyledTableCell>
+              <StyledTableCell align="center">no</StyledTableCell>
               <StyledTableCell align="left">제목</StyledTableCell>
-              <StyledTableCell align="right">작성자</StyledTableCell>
-              <StyledTableCell align="right">날짜</StyledTableCell>
-              <StyledTableCell align="right">조회수</StyledTableCell>
+              <StyledTableCell align="center">작성자</StyledTableCell>
+              <StyledTableCell align="center">날짜</StyledTableCell>
+              <StyledTableCell align="center">조회수</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -171,27 +173,26 @@ export default function CustomPaginationActionsTable({ data }) {
               (rowsPerPage > 0
                 ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : rows
-              ).map(row => (
-                <TableRow key={row.btitle}>
-                  <TableCell align="left">
-                    {row.no}
-                  </TableCell>
-                  <TableCell component="th" scope="row" align="left">{row.btitle}</TableCell>
-                  <TableCell align="right">{row.buser}</TableCell>
-                  <TableCell align="right">{row.updated_at}</TableCell>
-                  <TableCell align="right">{row.bhits}</TableCell>
-                </TableRow>
-              ))  
+              ).map(row => {
+                return (
+
+                  <TableRow key={row.bno}>
+                    <TableCell align="center">
+                      {row.bno}
+                    </TableCell>
+                    <TableCell className={classes.tdTitle} component="th" scope="row" align="left"><Link to={"board/" + row.bno}> {row.btitle}  </Link>    </TableCell>
+                    <TableCell align="center">{row.buser}</TableCell>
+                    <TableCell align="center">{getFormatDate(row.updatedAt)}</TableCell>
+                    <TableCell align="center">{row.bhits}</TableCell>
+                  </TableRow>
+                )
+              }
+              )
             }
-               {/* <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell align="center" colSpan={6} > 
-                      <CircularProgress />
-                    </TableCell>          
-                  </TableRow> 
-               */}
+
             {emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} />
+                <TableCell colSpan={5} />
               </TableRow>
             )}
           </TableBody>
@@ -199,7 +200,7 @@ export default function CustomPaginationActionsTable({ data }) {
             <TableRow>
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                colSpan={4}
+                colSpan={5}
                 count={rows.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
