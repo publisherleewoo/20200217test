@@ -23,7 +23,7 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
-
+import LongMenu from '../atom/LongMenu'
 
 
 const useStyles1 = makeStyles(theme => ({
@@ -121,7 +121,7 @@ function getFormatDate(arg) {
 }
 
 
-export default function CustomPaginationActionsTable({ data }) {
+export default function CustomPaginationActionsTable({ data,options }) {
 
   let [rows, setRows] = useState([])
 
@@ -148,16 +148,7 @@ export default function CustomPaginationActionsTable({ data }) {
     <>
 
       <TableContainer component={Paper}>
-        <Link to={{
-          pathname: "/board/write",
-
-        }}>
-          <button>
-
-            글쓰기
-
-        </button>
-        </Link>
+        <LongMenu options={options}></LongMenu>
         <Table className={classes.table} aria-label="custom pagination table">
           <TableHead>
             <TableRow>

@@ -6,7 +6,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {
   Avatar,
   Button,
-  CssBaseline,
   TextField,
   FormControlLabel,
   Checkbox,
@@ -53,33 +52,33 @@ export default () => {
   
   // const [checkId, setCheckId] = useState(false)
   // const [checkSubmit, setCheckSubmit] = useState(false)
-  // const [u_id, setId] = useState('');
-  // const [u_email, setEmail] = useState('');
-  // const [u_password, setPassword] = useState('');
-  // const [u_firstName, setFirstName] = useState('');
-  // const [u_lastName, setLastName] = useState('');
-  // const [u_gender, setGender] = useState('');
-  // const [u_birthdayY, setBirthdayY] = useState(new Date().getFullYear());
-  // const [u_birthdayM, setBirthdayM] = useState('01');
-  // const [u_birthdayD, setBirthdayD] = useState(1);
-  // const [u_phone1, setPhone1] = useState('');
-  // const [u_phone2, setPhone2] = useState('');
-  // const [u_phone3, setPhone3] = useState('');
+  // const [uid, setId] = useState('');
+  // const [uemail, setEmail] = useState('');
+  // const [upassword, setPassword] = useState('');
+  // const [ufirstName, setFirstName] = useState('');
+  // const [ulastName, setLastName] = useState('');
+  // const [ugender, setGender] = useState('');
+  // const [ubirthdayY, setBirthdayY] = useState(new Date().getFullYear());
+  // const [ubirthdayM, setBirthdayM] = useState('01');
+  // const [ubirthdayD, setBirthdayD] = useState(1);
+  // const [uphone1, setPhone1] = useState('');
+  // const [uphone2, setPhone2] = useState('');
+  // const [uphone3, setPhone3] = useState('');
   
   const [checkId, setCheckId] = useState(false)
   const [checkSubmit, setCheckSubmit] = useState(false)
-  const [u_id, setId] = useState('');
-  const [u_email, setEmail] = useState('a');
-  const [u_password, setPassword] = useState('1234');
-  const [u_firstName, setFirstName] = useState('a');
-  const [u_lastName, setLastName] = useState('a');
-  const [u_gender, setGender] = useState('a');
-  const [u_birthdayY, setBirthdayY] = useState(new Date().getFullYear());
-  const [u_birthdayM, setBirthdayM] = useState('01');
-  const [u_birthdayD, setBirthdayD] = useState(1);
-  const [u_phone1, setPhone1] = useState('1');
-  const [u_phone2, setPhone2] = useState('2');
-  const [u_phone3, setPhone3] = useState('3');
+  const [uid, setId] = useState('');
+  const [uemail, setEmail] = useState('a');
+  const [upassword, setPassword] = useState('1234');
+  const [ufirstName, setFirstName] = useState('a');
+  const [ulastName, setLastName] = useState('a');
+  const [ugender, setGender] = useState('a');
+  const [ubirthdayY, setBirthdayY] = useState(new Date().getFullYear());
+  const [ubirthdayM, setBirthdayM] = useState('01');
+  const [ubirthdayD, setBirthdayD] = useState(1);
+  const [uphone1, setPhone1] = useState('1');
+  const [uphone2, setPhone2] = useState('2');
+  const [uphone3, setPhone3] = useState('3');
  
   let submitFunc = (e) => {
     e.preventDefault()
@@ -88,13 +87,13 @@ export default () => {
 
 
     let reqData = {
-      u_id,
-      u_email,
-      u_password,
-      u_name: u_firstName + u_lastName,
-      u_gender,
-      u_birthday: u_birthdayY + u_birthdayM + u_birthdayD,
-      u_phone: u_phone1 + u_phone2 + u_phone3,
+      uid,
+      uemail,
+      upassword,
+      uname: ufirstName + ulastName,
+      ugender,
+      ubirthday: ubirthdayY + ubirthdayM + ubirthdayD,
+      uphone: uphone1 + uphone2 + uphone3,
     }
    
     Axios.post('/users/join', reqData)
@@ -108,7 +107,7 @@ export default () => {
   }
 
   let idCheck = () => {
-    Axios.post("/users/idcheck", { u_id }).then(r => {
+    Axios.post("/users/idcheck", { uid }).then(r => {
       let { data } = r;
       (data.code === 1) ? setCheckId(true) : setCheckId(false)
       alert(data.msg)
@@ -117,49 +116,48 @@ export default () => {
 
   }
 
-  const u_idChangeFunc = (event) => {
+  const uidChangeFunc = (event) => {
     setId(event.target.value);
   }
-  const u_emailChangeFunc = (event) => {
+  const uemailChangeFunc = (event) => {
     setEmail(event.target.value);
   }
-  const u_passwordChangeFunc = (event) => {
+  const upasswordChangeFunc = (event) => {
     setPassword(event.target.value);
   }
-  const u_firstNameChangeFunc = (event) => {
+  const ufirstNameChangeFunc = (event) => {
     setFirstName(event.target.value);
   }
-  const u_lastNameChangeFunc = (event) => {
+  const ulastNameChangeFunc = (event) => {
     setLastName(event.target.value);
   }
-  const u_genderChangeFunc = (event) => {
+  const ugenderChangeFunc = (event) => {
     setGender(event.target.value);
   }
-  const u_birthdayYChangeFunc = (event) => {
+  const ubirthdayYChangeFunc = (event) => {
     setBirthdayY(event.target.value);
   }
-  const u_birthdayMChangeFunc = (event) => {
+  const ubirthdayMChangeFunc = (event) => {
     setBirthdayM(event.target.value);
   }
-  const u_birthdayDChangeFunc = (event) => {
+  const ubirthdayDChangeFunc = (event) => {
     setBirthdayD(event.target.value);
   }
-  const u_phone1ChangeFunc = (event) => {
+  const uphone1ChangeFunc = (event) => {
     setPhone1(event.target.value);
   }
-  const u_phone2ChangeFunc = (event) => {
+  const uphone2ChangeFunc = (event) => {
     setPhone2(event.target.value);
   }
-  const u_phone3ChangeFunc = (event) => {
+  const uphone3ChangeFunc = (event) => {
     setPhone3(event.target.value);
   }
-  const u_checkChangeFunc = () => setCheckSubmit(!checkSubmit)
+  const ucheckChangeFunc = () => setCheckSubmit(!checkSubmit)
 
 
   return (
 
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <div className={classes.paper} >
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -176,11 +174,11 @@ export default () => {
                 fullWidth
                 id="id"
                 label="id"
-                name="u_id"
-                value={u_id}
+                name="uid"
+                value={uid}
                 autoComplete="id"
                 autoFocus
-                onChange={u_idChangeFunc}
+                onChange={uidChangeFunc}
               />
               <Button variant="contained"
                 color="primary" onClick={idCheck}>중복확인</Button>
@@ -193,10 +191,10 @@ export default () => {
                 fullWidth
                 id="email"
                 label="Email Address"
-                name="u_email"
-                value={u_email}
+                name="uemail"
+                value={uemail}
                 autoComplete="email"
-                onChange={u_emailChangeFunc}
+                onChange={uemailChangeFunc}
               />
             </Grid>
             <Grid item xs={12}>
@@ -204,26 +202,26 @@ export default () => {
                 variant="outlined"
                 required
                 fullWidth
-                name="u_password"
+                name="upassword"
                 label="Password"
                 type="password"
                 id="password"
-                value={u_password}
+                value={upassword}
                 autoComplete="current-password"
-                onChange={u_passwordChangeFunc}
+                onChange={upasswordChangeFunc}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                name="u_firstName"
+                name="ufirstName"
                 variant="outlined"
                 required
                 fullWidth
                 id="firstName"
                 label="First Name"
-                value={u_firstName}
+                value={ufirstName}
                 autoComplete="fname"
-                onChange={u_firstNameChangeFunc}
+                onChange={ufirstNameChangeFunc}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -233,10 +231,10 @@ export default () => {
                 fullWidth
                 id="lastName"
                 label="Last Name"
-                name="u_lastName"
-                value={u_lastName}
+                name="ulastName"
+                value={ulastName}
                 autoComplete="lname"
-                onChange={u_lastNameChangeFunc}
+                onChange={ulastNameChangeFunc}
               />
             </Grid>
             <Grid item xs={12} >
@@ -246,9 +244,9 @@ export default () => {
                 <Select
                   labelId="demo-simple-select-required-label"
                   id="demo-simple-select-required"
-                  value={u_gender}
-                  name="u_gender"
-                  onChange={u_genderChangeFunc}
+                  value={ugender}
+                  name="ugender"
+                  onChange={ugenderChangeFunc}
                 >
                   <MenuItem value={'man'}>man</MenuItem>
                   <MenuItem value={'woman'}>woman</MenuItem>
@@ -264,9 +262,9 @@ export default () => {
                   labelId="demo-simple-select-helper-label"
                   id="demo-simple-select-helper"
                   //선택
-                  value={u_birthdayY}
-                  name="u_birthdayY"
-                  onChange={u_birthdayYChangeFunc}
+                  value={ubirthdayY}
+                  name="ubirthdayY"
+                  onChange={ubirthdayYChangeFunc}
                 >
                   {
                     (() => {
@@ -288,9 +286,9 @@ export default () => {
                   labelId="demo-simple-select-helper-label"
                   id="demo-simple-select-helper"
                   //선택
-                  value={u_birthdayM}
-                  name="u_birthdayM"
-                  onChange={u_birthdayMChangeFunc}
+                  value={ubirthdayM}
+                  name="ubirthdayM"
+                  onChange={ubirthdayMChangeFunc}
                 >
                   {
                     (() => {
@@ -316,9 +314,9 @@ export default () => {
                   labelId="demo-simple-select-helper-label"
                   id="demo-simple-select-helper"
                   //선택
-                  value={u_birthdayD}
-                  name="u_birthdayD"
-                  onChange={u_birthdayDChangeFunc}
+                  value={ubirthdayD}
+                  name="ubirthdayD"
+                  onChange={ubirthdayDChangeFunc}
                 >
                   {
                     (() => {
@@ -341,9 +339,9 @@ export default () => {
                 fullWidth
                 id="phone1"
                 label="Phone"
-                name="u_phone1"
-                value={u_phone1}
-                onChange={u_phone1ChangeFunc}
+                name="uphone1"
+                value={uphone1}
+                onChange={uphone1ChangeFunc}
               />
             </Grid>
 
@@ -355,9 +353,9 @@ export default () => {
                 fullWidth
                 id="phone2"
                 label="Phone"
-                name="u_phone2"
-                value={u_phone2}
-                onChange={u_phone2ChangeFunc}
+                name="uphone2"
+                value={uphone2}
+                onChange={uphone2ChangeFunc}
               />
             </Grid><Grid item xs={4}>
               <TextField
@@ -367,14 +365,14 @@ export default () => {
                 fullWidth
                 id="phone3"
                 label="Phone"
-                name="u_phone3"
-                value={u_phone3}
-                onChange={u_phone3ChangeFunc}
+                name="uphone3"
+                value={uphone3}
+                onChange={uphone3ChangeFunc}
               />
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox color="primary" onChange={u_checkChangeFunc} />}
+                control={<Checkbox color="primary" onChange={ucheckChangeFunc} />}
                 label="I want to receive inspiration, marketing promotions and updates via email."
               />
             </Grid>

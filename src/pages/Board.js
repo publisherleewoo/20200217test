@@ -3,6 +3,7 @@ import MainVisual from '../component/MainVisual'
 import { Grid, CircularProgress } from '@material-ui/core'
 import BoardTable from '../component/BoardTable'
 import Axios from 'axios'
+
 const mainVisual = {
     title: 'Board Page Title of a longer featured blog post',
     description:
@@ -11,7 +12,13 @@ const mainVisual = {
     imgText: 'main image description',
     linkText: 'more Link',
 };
+const options = [
+    {str:'글쓰기',link:'./board/write'}, 
+  ];
 
+
+
+  
 let Board = () => {
     let [data, setData] = useState(null)
 
@@ -37,7 +44,7 @@ let Board = () => {
                     <>
                         <MainVisual post={mainVisual} />
                         <Grid container>
-                            <BoardTable data={data}   ></BoardTable>
+                            <BoardTable data={data} options={options}  ></BoardTable>
                         </Grid>
                     </>
             }

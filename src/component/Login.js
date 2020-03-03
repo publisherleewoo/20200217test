@@ -6,7 +6,6 @@ import store from '../store'
 import {
     Avatar,
     Button,
-    CssBaseline,
     TextField,
     Grid,
     Box,
@@ -41,14 +40,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function Login() {
     const classes = useStyles();
-    let [u_id, setU_id] = useState('test');
-    let [u_password, setU_password] = useState('1234');
+    let [uid, setUid] = useState('test');
+    let [upassword, setUpassword] = useState('1234');
     let history = useHistory()
 
     let AxiosFunc = () => {
         let reqData = {
-            u_id,
-            u_password
+            uid,
+            upassword
         }
         Axios.post('/users/login', reqData,{withCredentials:true})
             .then(r => {
@@ -67,17 +66,16 @@ export default function Login() {
         e.preventDefault()
         AxiosFunc()
     }
-    let u_idChangeFunc = (e) => {
-        setU_id(e.target.value)
+    let uidChangeFunc = (e) => {
+        setUid(e.target.value)
     }
 
-    let u_passwordChangeFunc = (e) => {
-        setU_password(e.target.value)
+    let upasswordChangeFunc = (e) => {
+        setUpassword(e.target.value)
     }
 
     return (
         <Container component="main" maxWidth="xs">
-            <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
@@ -96,8 +94,8 @@ export default function Login() {
                         name="id"
                         autoComplete="id"
                         autoFocus
-                        value={u_id}
-                        onChange={u_idChangeFunc}
+                        value={uid}
+                        onChange={uidChangeFunc}
                     />
                     <TextField
                         variant="outlined"
@@ -109,8 +107,8 @@ export default function Login() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
-                        value={u_password}
-                        onChange={u_passwordChangeFunc}
+                        value={upassword}
+                        onChange={upasswordChangeFunc}
                     />
                     {/* <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}

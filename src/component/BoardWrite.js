@@ -22,7 +22,7 @@ class BoardWrite extends Component {
         }
         let {userInfo} = store.getState()
         this.setState({
-            buser:userInfo.u_id
+            buser:userInfo.uid
         })
     }
 
