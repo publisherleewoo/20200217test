@@ -26,15 +26,16 @@ export default function Header() {
   const classes = useStyles();
   
   let [islogin,setIslogin] = useState('')
-  let [u_name,setu_name] = useState('')
+  let [uname,setuname] = useState('')
   
   
   
   store.subscribe(()=>{
     let storeState = store.getState()
     let {userInfo} = storeState 
+    console.log(userInfo)
     setIslogin(true)
-    setu_name(userInfo.u_name)
+    setuname(userInfo.uname)
   })
   
   return (
@@ -57,7 +58,7 @@ export default function Header() {
         </Typography>
         {
           (islogin) ?
-            u_name
+            uname
             :
             (
             <>

@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MultilineTextFields() {
+export default function MultilineTextFields({reciveData}) {
   const classes = useStyles();
   const [value, setValue] = React.useState('');
   
@@ -24,10 +24,15 @@ export default function MultilineTextFields() {
     if(!store.getState().islogin){
       return alert("로그인해주세요")
     }
-  
-    Axios.post("board/detail/reply",{reply:value})
+    Axios.post("board/reply",{reply:value})
     .then(r=>{
-      console.log(r)
+      if(r.data.code ===1){
+        alert(r.data.msg)
+        reciveData()
+      }else{
+        alert(r.data.msg)
+      
+      }
     }).catch(err=>{
       alert(err)
     })

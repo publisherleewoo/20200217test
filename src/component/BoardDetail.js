@@ -47,6 +47,7 @@ export default function RecipeReviewCard() {
   const [buser,setBuser] = useState('')
   const [bcontents,setBcontents] = useState('')
   const [bdate,setBdate] = useState('')
+  const [breplys,setBreplys] = useState([])
 
 
   function getFormatDate(arg) {
@@ -59,9 +60,22 @@ export default function RecipeReviewCard() {
     return year + '-' + month + '-' + day;
   }
   
+  let reciveData=()=>{
+      Axios.get('/board/reply').then(r=>{
+          if(r.data.code ===1){
+            alert(r.data.msg)
+            setBreplys(r.data.data)
+          }else{
+            alert(r.data.msg)
+          }
+      }).catch(err=>{
+        console.log(err)
+      })
+  }
 
   useEffect(()=>{
 
+    //마운트 로딩
     Axios.get(`/board/detail/${params.id}`).then(r=>{
       let {data} = r
      console.log(data)
@@ -71,6 +85,7 @@ export default function RecipeReviewCard() {
           setBuser(data.data.buser)
           setBcontents(data.data.bcontents)
           setBdate(getFormatDate(data.data.updatedAt))
+          reciveData()
            return
           }else{
            alert(data.msg)
@@ -79,6 +94,7 @@ export default function RecipeReviewCard() {
           alert(err)
       })
 
+      //조회수추가
       Axios.post(`/board/detail/${params.id}`).then(r=>{
         console.log(r)
         }).catch(err=>{
@@ -125,8 +141,8 @@ export default function RecipeReviewCard() {
       </CardActions>
 
 
-      <MultilineTextFields></MultilineTextFields>
-      <AlginList></AlginList>
+      <MultilineTextFields reciveData={reciveData}></MultilineTextFields>
+      <AlginList breplys={breplys}></AlginList>
          
     </Card>
   );
